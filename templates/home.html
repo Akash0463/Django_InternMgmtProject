@@ -1,0 +1,150 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #7abecc !important;
+        }
+        
+        .user_card {
+            width: 350px;
+            margin-top: auto;
+            margin-bottom: auto;
+            background: #74cfbf;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            padding: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border-radius: 5px;
+        }
+        
+        .form_container {
+            margin-top: 20px;
+        }
+        
+        #form-title {
+            color: #fff;
+        }
+        
+        .login_btn {
+            width: 100%;
+            background: #33ccff !important;
+            color: white !important;
+        }
+        
+        .login_btn:focus {
+            box-shadow: none !important;
+            outline: 0px !important;
+        }
+        
+        .login_container {
+            padding: 0 2rem;
+        }
+        
+        .input-group-text {
+            background: #f7ba5b !important;
+            color: white !important;
+            border: 0 !important;
+            border-radius: 0.25rem 0 0 0.25rem !important;
+        }
+        
+        .input_user,
+        .input_pass:focus {
+            box-shadow: none !important;
+            outline: 0px !important;
+        }
+        
+        #messages {
+            background-color: grey;
+            color: #fff;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        
+        .navbar-brand {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'images/gyanam.jpg' %}" width="40" height="40" class="d-inline-block align-top" alt="">&nbsp;
+            <div class="d-flex justify-content-center">
+                <h3 id="form-title">eGyanam</h3>
+            </div>
+        </a>
+    </nav>
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{message.tags}}" id="msg" role="alert">
+        {{message}}
+    </div>
+    {% endfor %} {% endif %}
+    <script>
+        setTimeout(function() {
+            if ($('#msg').length > 0) {
+                $('#msg').remove();
+            }
+        }, 2000)
+    </script>
+    <div class="container my-4">
+        <div class="d-flex justify-content-center">
+            <h5 id="form-title">eGyanam invites Internship applications from Computer Science students. Interested and eligible candidates can apply. The candidate is responsible for design, development and maintaining databases in support of client requirements, evaluating
+                and processing a client’s data feeds and generating production deliverables.</h5>
+        </div>
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'images/home2.jpg' %}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'images/home3.jpg' %}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://source.unsplash.com/1600x600/?CCTV" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </a>
+        </div>
+        <div class="d-flex justify-content-center links my-3">
+            <h2>For Internship details <a href="{% url 'loginView' %}" class="ml-2">Click Here</a></h2>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

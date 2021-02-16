@@ -1,0 +1,23 @@
+{% load static %}
+
+<style type="text/css">
+    .hello-msg {
+        font-size: 20px;
+        color: #f7ba5b;
+        margin-right: 20px
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <img src="{% static 'images/gyanam.jpg' %}" height=35px>&nbsp;
+    <div class="d-flex justify-content">
+        <h3 id="form-title">eGyanam</h3>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+    </div>
+    <span class="hello-msg">Welcome {{request.user}}</span>
+    <span class="hello-msg"> <a href="{% url 'logout' %}">Logout</a></span>
+</nav>

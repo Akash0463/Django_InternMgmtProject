@@ -74,19 +74,18 @@
             width: 100%;
             justify-content: center;
         }
+        
+        .hello-msg {
+            font-size: 20px;
+            color: #f7ba5b;
+            margin-right: 20px
+        }
     </style>
 
 </head>
 
 <body>
-    <nav class="navbar navbar-light bg-dark">
-        <a class="navbar-brand" href="#">
-            <img src="{% static 'images/gyanam.jpg' %}" width="40" height="40" class="d-inline-block align-top" alt="">&nbsp;
-            <div class="d-flex justify-content-center">
-                <h3 id="form-title">eGyanam</h3>
-            </div>
-        </a>
-    </nav>
+    {% include 'navbar.html' %}
     <div class="container h-75">
         <div class="d-flex justify-content-center h-100">
             <div class="user_card">
@@ -102,56 +101,29 @@
                         </div>
                         {% endfor %} {% endif %}
 
-                        <div class="input-group p-1">
+                        <div class="input-group mb-2">
                             <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-user" style='font-size:16px'></i></span>
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input required type="text" name="first_name" size="31">
-                        </div>
-                        <div class="input-group p-1">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-user" style='font-size:16px'></i></span>
-                            </div>
-                            <input required type="text" name="last_name" size="31">
-                        </div>
-                        <div class="input-group p-1">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-envelope-square"
-                                        style='font-size:16px'></i></span>
-                            </div>
-                            <input required type="email" name="email" size="31">
+                            <input type="text" name="field" size="31" value={{user}} readonly>
                         </div>
 
-                        <div class="input-group p-1">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-university"
-                                        style='font-size:14px'></i></span>
-                            </div>
-                            <input required type="text" name="university" size="31">
-                        </div>
-
-                        <div class="input-group p-1">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-phone-square"
-                                        style='font-size:17px'></i></span>
-                            </div>
-                            <input required type="text" name="phone" size="31">
-                        </div>
-
-                        <div class="input-group p-1">
+                        <div class="input-group mb-2">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fas fa-laptop"
                                         style='font-size:12px'></i></span>
                             </div>
-                            <input type="text" name="field" size="31" value={{head}} readonly>
+                            <input type="text" name="field" size="31" value={{field}} readonly>
                         </div>
-                        <div class="input-group p-1">
+
+                        <div class="input-group mb-2">
                             <span class="input-group-text"><i class="fas fa-upload" style='font-size:14px'></i></span>
                             <div class="custom-file">
                                 <input required type="file" name="docfile" class="custom-file-input" id="customFile">
                                 <label class="custom-file-label" for="customFile">Upload Resume</label>
                             </div>
                         </div>
+
                         <script>
                             $(".custom-file-input").on("change", function() {
                                 var fileName = $(this).val().split("\\").pop();
@@ -177,11 +149,8 @@
     </div>
     <script>
         var form_fields = document.getElementsByTagName('input')
-        form_fields[1].placeholder = 'First Name..';
-        form_fields[2].placeholder = 'Last Name..';
-        form_fields[3].placeholder = 'Email..';
-        form_fields[4].placeholder = 'University..';
-        form_fields[5].placeholder = 'Phone No...';
+        form_fields[1].placeholder = 'Field..';
+        form_fields[2].placeholder = 'Upload Resume..';
 
         for (var field in form_fields) {
             form_fields[field].className += ' form-control'

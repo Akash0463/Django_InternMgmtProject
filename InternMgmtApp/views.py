@@ -8,34 +8,15 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 
-
 def home(request):
     return render(request,'home.html',{'link':'http://127.0.0.1:8000/register'})
+    #return render(request,'main.html')
 
 #For Login
 def loginView(request):
-    return render(request,'login.html')
-
-def subPost1(request):
-    return render(request,'subPosting.html')    
-
-def subPost2(request):
-    return render(request,'subPosting2.html')    
-
-def subPost3(request):
-    return render(request,'subPosting3.html')    
-
-def subPost4(request):
-    return render(request,'subPosting4.html')    
-
-def subPost5(request):
-    return render(request,'subPosting5.html')    
-
-def subPost6(request):
-    return render(request,'subPosting6.html')    
+    return render(request,'login.html')    
 
 def validateLogin(request):
-    print('hey')
     if request.method == 'POST':
         username = request.POST['username']
         pas = request.POST['password']
@@ -125,34 +106,39 @@ def displaySubPost(request):
 def apply(request):
     data = {}
     if(request.POST.get('HTML-5')):
-        data = {"field": "Web-Developement(HTML-5)","user":request.user}
+        data = {"main_stream" : "Web-Developement","field": "HTML-5","user":request.user}
     if(request.POST.get('PHP')):
-        data = {'field':'Web-Development(PHP)',"user":request.user}
+        data = {"main_stream" : "Web-Developement","field": "PHP","user":request.user}
     if(request.POST.get('JavaScript')):
-        data = {'field':'Web-Development(JavaScript)',"user":request.user}
+        data = {"main_stream" : "Web-Developement","field": "JavaScript","user":request.user}
+    if(request.POST.get('JAVA-Android')):
+        data = {"main_stream" : "Android-Developement","field": "JAVA-Android","user":request.user}
+    if(request.POST.get('Kotlin-Android')):
+        data = {"main_stream" : "Android-Developement","field": "Kotlin-Android","user":request.user}
     
     return render(request, 'apply.html', data)
 
 @login_required(login_url="loginView")
 def addApplicantDetails(request):
     if request.method == 'POST':
-        applied_in = request.POST['field']
+        mainField = request.POST['mainField']
+        field = request.POST['field']
         resume = request.FILES['docfile']
 
-        if ApplicationDetails.objects.filter(user=request.user, applied_in=applied_in).exists():
+        if ApplicationDetails.objects.filter(user=request.user, main_stream=mainField, field=field).exists():
             messages.error(request,'Already applied')
             return render(request, 'apply.html')
 
         else:
             applicant = ApplicationDetails()
             applicant.user = request.user
-            applicant.applied_in = request.user
-            applicant.applied_in = applied_in
+            applicant.main_stream = mainField
+            applicant.field = field
             applicant.resume = resume
 
             applicant.save()
-            messages.success(request,'Application Registered Successful')
-            return render(request, 'home.html')
+            messages.success(request,'Application Registered Successfully')
+            return render(request, 'jobPosting.html')
 
     return render(request, 'home.html')
 
@@ -164,3 +150,23 @@ def retrieveData(request):
 def logout(request):
     auth.logout(request)
     return render(request,'login.html')
+
+def my_application(request):
+    data={}
+
+    if ApplicationDetails.objects.filter(user=request.user).exists():
+        details = ApplicationDetails.objects.filter(user=request.user).all()
+        total_count = details.count()
+        app_count = ApplicationDetails.objects.filter(user=request.user,status="Approved").all().count()
+        pending_count = ApplicationDetails.objects.filter(user=request.user,status="Pending").all().count()
+        data={"application_details":details, "total_count":total_count, "app_count":app_count, "pending_count":pending_count}
+    return render(request,'my_application.html',data)
+
+def deleteApplication(request,pk):
+    application = ApplicationDetails.objects.get(id = pk)
+    if request.method == 'POST':
+        print(application.field)
+        application.delete()
+        return redirect('my_application')
+    context = {'application': application}
+    return render(request,'delete.html',context)

@@ -88,6 +88,12 @@
 
 <body>
     {% include 'navbar.html' %}
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{message.tags}}" id="msg" role="alert">
+        {{message}}
+    </div>
+    {% endfor %} {% endif %}
+
     <form action='displaySubPost' method='POST'>
         {% csrf_token %}
         <div class="album py-3 ">
@@ -187,6 +193,14 @@
             </div>
         </div>
         </from>
+        <script>
+        setTimeout(function() 
+        {
+            if ($('#msg').length > 0) {
+                $('#msg').remove();
+            }
+        }, 2000)
+        </script>
 </body>
 
 </html>

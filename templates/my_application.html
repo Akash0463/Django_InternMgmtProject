@@ -1,0 +1,97 @@
+{% extends 'main.html' %}
+
+{% block content%}
+
+<br>
+<div class = "row">
+<div class = "col">
+	<div class = "col-md">
+
+		<div class = "card text-center text-white mb-3" id="total-orders">
+			<div class = "card-header">
+			<h5 class = "card-title"> Total Application</h5>
+			</div>
+
+			<div class = "card-body">
+			<h3 class = "card-title">{{total_count}}</h3>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class = "col">
+<div class = "col-md">
+
+	<div class = "card text-center text-white mb-3" id="orders-delivered">
+		<div class = "card-header">
+		<h5 class = "card-title">Application Approved</h5>
+		</div>
+
+		<div class = "card-body">
+		<h3 class = "card-title">{{app_count}}</h3>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+
+<div class = "col">
+<div class = "col-md">
+
+	<div class = "card text-center text-white mb-3" id="orders-pending">
+		<div class = "card-header">
+		<h5 class = "card-title">Application Pending</h5>
+		</div>
+
+		<div class = "card-body">
+		<h3 class = "card-title">{{pending_count}}</h3>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<br>
+
+
+<div class = "row">
+	
+
+<div class = "col-md">
+		<hr>
+		<div class = "card card-body">
+		
+
+	<table class="table table-sm">
+	<tr>
+		<th>Main Stream</th>
+		<th>Field</th>
+        <th>Application Date</th>
+		<th>Status</th>
+		<th>Remove</th>
+	</tr>
+
+
+	{% for application in application_details %}
+	<tr>
+		<td>{{application.main_stream}}</td>
+		<td>{{application.field}}</td>
+        <td>{{application.date}}</td>
+		<td>{{application.status}}</td>
+		<td><a class = "btn btn-sm btn-danger" href = "{% url 'deleteApplication' application.id %}"> Remove</a></td>
+	</tr>
+
+	{% endfor %}
+
+	
+	</table>
+	
+
+</div>
+</div>
+</div>
+
+
+
+
+{% endblock %}

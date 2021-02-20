@@ -14,6 +14,8 @@ urlpatterns = [
     path('addApplicantDetails', views.addApplicantDetails, name='addApplicantDetails'),
     path('retrieveData', views.retrieveData, name='retrieveData'),
     path('displayJobPosting', views.displayJobPosting, name='displayJobPosting'),
-    path('logout', views.logout, name='logout')
+    path('logout', views.logout, name='logout'),
+    path('my_application', views.my_application, name='my_application'),
+    path('deleteApplication/<str:pk>/', views.deleteApplication, name='deleteApplication')
 ]
 
